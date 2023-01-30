@@ -8,7 +8,9 @@ import {
   InputGroup,
   InputRightElement,
   Input,
-  SimpleGrid
+  SimpleGrid,
+  Show,
+  Hide
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { BsCart3 } from "react-icons/bs";
@@ -23,8 +25,9 @@ function Navbar() {
     <Box bg={"blue.100"} pl='10px' pr='10px'>
       <Flex justifyContent='space-between' align='center'>
         <Box>
-          <Image src={logo} h={{lg:'60px'}}/>
+          <Image src={logo} h={{base:"50px",lg:'60px'}}/>
         </Box>
+        <Show above='lg'>
         <Box>
           <InputGroup>
             <InputRightElement
@@ -34,6 +37,7 @@ function Navbar() {
             <Input type="text" htmlSize={55} variant='filled' placeholder="Find Your Fashion" />
           </InputGroup>
         </Box>
+        </Show>
         <Box >
           <Flex gap='25px' align='center'>
             <Box>
@@ -53,6 +57,17 @@ function Navbar() {
           </Flex>
         </Box>
       </Flex>
+      <Hide above='lg'>
+      <Box mt='20px' pb='7px'>
+          <InputGroup>
+            <InputRightElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.700" />}
+            />
+            <Input type="text" htmlSize={45} variant='filled' placeholder="Find Your Fashion" />
+          </InputGroup>
+        </Box>
+      </Hide>
     </Box>
     <Box boxShadow='inner' p='2' bg='gray.900' color='white'>
         <SimpleGrid columns={4}>
