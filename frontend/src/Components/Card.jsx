@@ -1,30 +1,13 @@
 import React from "react";
 import {
-  Badge,
   Box,
-  Circle,
   Flex,
   Image,
-  Tooltip,
-  useColorModeValue,
-  Icon,
-  chakra,
-  Stack,
-  Button,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { FiShoppingCart } from "react-icons/fi";
-import { ArrowForwardIcon, EmailIcon } from "@chakra-ui/icons";
 
-// const data = {
-//   isNew: true,
-//   imageURL:
-//     "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80",
-//   name: "Wayfarer Classic",
-//   price: 4.5,
-//   rating: 3.2,
-//   numReviews: 34,
-// };
+
 
 const data = {
   image: "https://m.media-amazon.com/images/I/61DGAlvxRLL._AC_UL320_.jpg",
@@ -42,7 +25,6 @@ const data = {
 function Card() {
   return (
     <Box
-      // bg={useColorModeValue("white", "gray.800")}
       maxW="sm"
       borderWidth="1px"
       rounded="lg"
