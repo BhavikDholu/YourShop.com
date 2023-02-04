@@ -33,6 +33,17 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
+productRouter.get("/:id",async(req,res) => {
+  const id = req.params.id;
+  try {
+    const product = await ProductModel.findById(id).exec();
+    res.send({product:product});
+  } catch (error) {
+    console.log(error);
+    res.send("something went wrong");
+  }
+})
+
 productRouter.post("/create", async (req, res) => {
   let data = req.body;
   try {

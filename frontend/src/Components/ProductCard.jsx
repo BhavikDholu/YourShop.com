@@ -1,45 +1,8 @@
 import React from "react";
+import Rating from "./Rating";
 import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-
-const data = {
-  image: "https://m.media-amazon.com/images/I/61DGAlvxRLL._AC_UL320_.jpg",
-  title: "Dennis Lingo",
-  description: "Men's Checkered Slim Fit Cotton Casual Shirt",
-  rating: "2.9",
-  d_price: "649",
-  price: "2,499",
-  discount: "74%",
-  offer: "Buy 3 Get 5% Off, Buy 4 Get 10% Off",
-  category: "shirt",
-  type: "men",
-};
-
-function Rating({ rating }) {
-  return (
-    <Flex alignItems="center">
-      {Array(5)
-        .fill("")
-        .map((_, i) => {
-          const roundedRating = Math.round(rating * 2) / 2;
-          if (roundedRating - i >= 1) {
-            return (
-              <BsStarFill
-                key={i}
-                style={{ marginLeft: "1" }}
-                color={i < rating ? "orange" : "blue"}
-              />
-            );
-          }
-          if (roundedRating - i === 0.5) {
-            return <BsStarHalf key={i} style={{ marginLeft: "1" }} color="orange"/>;
-          }
-          return <BsStar key={i} style={{ marginLeft: "1" }} />;
-        })}
-    </Flex>
-  );
-}
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = (props) => {
   const {
@@ -53,7 +16,15 @@ const ProductCard = (props) => {
     offer,
     category,
     type,
+    id
   } = props;
+
+  const navigate = useNavigate();
+
+  const handleClick = (id)=>{
+      navigate(`/men/${id}`);
+  }
+
   return (
     <Box
       maxW="sm"
@@ -62,6 +33,7 @@ const ProductCard = (props) => {
       shadow="lg"
       align="center"
       p={2}
+      onClick={()=>handleClick(id)}
     >
       <Image src={image} alt={`Picture of ${title}`} roundedTop="lg" />
 
