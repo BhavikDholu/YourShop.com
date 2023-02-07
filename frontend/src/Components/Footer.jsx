@@ -7,7 +7,7 @@ import delivery from "../assets/delivery.png"
 function Footer() {
     const navigate = useNavigate()
   return (
-    <Box bg={"blue.100"} p={10}>
+    <Box bg={"blue.100"} p={10} mt={20}>
       <SimpleGrid columns={{base:1,md:2,lg:4}} spacing={{base:10,md:10}}>
         <Stack align={"flex-start"}>
           <Text fontWeight={"500"} fontSize={"lg"} mb={2}>
