@@ -10,10 +10,10 @@ const authenticate = (req, res, next) => {
         req.body.userID = userID;
       next();
     } else {
-      res.send("Please Login");
+      res.send("Please Login first");
     }
   } else {
-    res.send("Please Login");
+    res.send("Please Login first");
   }
 };
 module.exports = {
