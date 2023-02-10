@@ -13,7 +13,7 @@ const initialState = {
   productData: [],
 };
 
-export const ProductReducer = (state = initialState, { type, payload }) => {
+export const productReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_PRODUCT_LOADING: {
       return {
