@@ -3,6 +3,7 @@ const cors = require("cors");
 const { connection } = require("./config/db");
 const { productRouter } = require("./routes/product.route");
 const { userRouter } = require("./routes/user.route");
+const { cartRouter } = require("./routes/cart.route");
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/",(req,res)=>{
 
 app.use("/user",userRouter);
 app.use("/product",productRouter);
+app.use("/cart",cartRouter);
 
 app.listen(4500, async()=>{
     try {
