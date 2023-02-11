@@ -1,9 +1,11 @@
 import {legacy_createStore,combineReducers,compose,applyMiddleware} from "redux";
-import {ProductReducer} from "./Product/product.reducer";
+import {productReducer} from "./Product/product.reducer";
 import thunk from "redux-thunk";
+import { cartReducer } from "./Cart/cart.reducer";
  
 const rootReducer = combineReducers({
-    product:ProductReducer
+    product:productReducer,
+    cart : cartReducer
 });
 
 const composer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose ;
