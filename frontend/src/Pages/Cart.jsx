@@ -1,28 +1,21 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Select,
-  SimpleGrid,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItem } from "../Redux/Cart/cart.actions";
-import { ArrowForwardIcon, DeleteIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import CartItem from "../Components/CartItem";
 
 function Cart() {
   const { cartItem, totalPrice, discountPrice, totalItem } = useSelector(
     (store) => store.cart
   );
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getCartItem());
   }, []);
 
-  if (totalItem===0) {
+  if (totalItem === 0) {
     return (
       <Box
         fontSize="xl"
@@ -30,9 +23,13 @@ function Cart() {
         as="h4"
         lineHeight="tight"
         isTruncated
-        align='center'
+        align="center"
       >
-        <Image margin='auto' src='https://surprisehours.com/assets/website/img/emptycart.png' alt='cart image' />
+        <Image
+          margin="auto"
+          src="https://surprisehours.com/assets/website/img/emptycart.png"
+          alt="cart image"
+        />
         Your Cart Is Empty!
       </Box>
     );
@@ -47,68 +44,21 @@ function Cart() {
       >
         <Box p={3} w={{ lg: "100%" }}>
           {cartItem?.map((item) => (
-            <Flex
-              p={{ md: 3, lg: 3, base: 1 }}
+            <CartItem
               key={item._id}
-              mt="10px"
-              border="1px solid gray"
-              borderRadius={10}
-              align="center"
-              justifyContent={"space-between"}
-            >
-              <Image
-                src={item.productID.image}
-                alt={item.productID.title}
-                h={20}
-              />
-              <Flex direction="column">
-                <Box
-                  fontSize="xl"
-                  fontWeight="semibold"
-                  as="h4"
-                  lineHeight="tight"
-                  isTruncated
-                >
-                  {item.productID.title}
-                </Box>
-                <Box>
-                  <Select placeholder={item.count}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </Select>
-                </Box>
-              </Flex>
-              <Box justifyContent={"center"} gap="6px" align="end">
-                <Box fontSize="2xl" color={"gray.800"}>
-                  <Box as="span" color={"gray.600"} fontSize="lg">
-                    ₹
-                  </Box>
-                  {item.productID.d_price}
-                </Box>
-
-                <Box as="span" color={"red.600"} fontSize="lg">
-                  -{item.productID.discount}
-                </Box>
-                <Box
-                  as="span"
-                  color={"gray.600"}
-                  fontSize="lg"
-                  textDecoration={"line-through"}
-                >
-                  ₹{item.productID.price}
-                </Box>
-              </Box>
-              <Button colorScheme="red">
-                <DeleteIcon />
-              </Button>
-            </Flex>
+              id={item._id}
+              image={item.productID.image}
+              title={item.productID.title}
+              count={item.count}
+              d_price={item.productID.d_price}
+              price={item.productID.price}
+              discount={item.productID.discount}
+            />
           ))}
         </Box>
         <Flex
-          h="350px"
-          gap={6}
+          h="430px"
+          gap={5}
           direction="column"
           border="1px solid gray"
           w={{ base: "90%", md: "90%", lg: "70%" }}
@@ -138,7 +88,7 @@ function Cart() {
           </Flex>
           <Flex justifyContent={"space-between"}>
             <Box fontSize="xl" as="span" lineHeight="tight">
-              Total Price:-
+              Subtotal:-
             </Box>
             <Box fontSize="xl" as="span" lineHeight="tight">
               ₹{totalPrice}
@@ -146,7 +96,23 @@ function Cart() {
           </Flex>
           <Flex justifyContent={"space-between"}>
             <Box fontSize="xl" as="span" lineHeight="tight">
-              Total Discount Price:-
+              Discount:-
+            </Box>
+            <Box fontSize="xl" as="span" lineHeight="tight">
+              -₹{totalPrice-discountPrice}
+            </Box>
+          </Flex>
+          <Flex justifyContent={"space-between"}>
+            <Box fontSize="xl" as="span" lineHeight="tight">
+              Shipping:-
+            </Box>
+            <Box fontSize="xl" as="span" lineHeight="tight" color={'green'}>
+              FREE
+            </Box>
+          </Flex>
+          <Flex justifyContent={"space-between"}>
+            <Box fontSize="xl" as="span" lineHeight="tight">
+              Total:-
             </Box>
             <Box fontSize="xl" as="span" lineHeight="tight">
               ₹{discountPrice}

@@ -30,7 +30,7 @@ export const cartReducer = (state = initState, { type, payload }) => {
       let num=0;
       payload.forEach((item) => {
         dPrice += item.count * item.productID.d_price;
-        price +=item.count * item.productID.price;
+        price +=item.count * Number(item.productID.price.replace(",",""));
         num +=item.count;
       });
       return {
@@ -65,8 +65,8 @@ export const cartReducer = (state = initState, { type, payload }) => {
           item.count = payload.count;
         }
         dPrice += (item.count)*item.productID.d_price;
-        price += (item.count)*item.productID.price;
-        num+=item.count
+        price += (item.count)*Number(item.productID.price.replace(",",""));
+        num+=Number(item.count)
         return item;
       });
       return {
@@ -83,9 +83,9 @@ export const cartReducer = (state = initState, { type, payload }) => {
       let price = 0;
       let num=0;
       let new_cart = state.cartItem.filter((item) => {
-        if (item._id !== payload) {
+        if (item._id !== payload.id) {
           dPrice += (item.count)*item.productID.d_price;
-          price += (item.count)*item.productID.price;
+          price += (item.count)*Number(item.productID.price.replace(",",""));
           num+=item.count;
           return item;
         } 

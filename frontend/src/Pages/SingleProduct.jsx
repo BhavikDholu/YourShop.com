@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { getSingleProduct } from '../Redux/Product/product.actions';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { BsCart3 } from 'react-icons/bs';
+import { addToCart } from '../Redux/Cart/cart.actions';
 
 // const singleProduct = {
 //   image: "https://m.media-amazon.com/images/I/61DGAlvxRLL._AC_UL320_.jpg",
@@ -25,6 +26,10 @@ function SingleProduct() {
   const {id} = useParams();
   const {singleProduct} = useSelector((store)=>store.product);
   const dispatch = useDispatch();
+
+  const handleAdd = (id) =>{
+    dispatch(addToCart(id));
+  }
 
   useEffect(()=>{
     dispatch(getSingleProduct(id));
@@ -85,6 +90,7 @@ function SingleProduct() {
           rightIcon={<BsCart3 />}
           colorScheme="blue"
           variant="solid"
+          onClick={()=>handleAdd(singleProduct._id)}
         >
           Add to Cart
         </Button>
