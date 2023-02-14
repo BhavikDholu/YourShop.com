@@ -20,7 +20,7 @@ function Men() {
 
   return (
     <Box aign='center'>
-      <SimpleGrid columns={[2, null, 3]} spacing={2} justifyContent='space-evenly' border='1px solid red'>
+      <SimpleGrid columns={[2, null, 3]} spacing={2} justifyContent='space-evenly'>
         {
           productData?.map((el)=><ProductCard key={el._id} id={el._id} image={el.image} title={el.title} description={el.description} rating={el.rating} d_price={el.d_price} price={el.price} discount={el.discount} offer={el.offer} category={el.category} type={el.type}/>)
         }
