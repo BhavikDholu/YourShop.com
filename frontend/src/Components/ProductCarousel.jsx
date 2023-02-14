@@ -55,12 +55,14 @@ const ProductCarousel = (props) => {
               rounded="lg"
               shadow="lg"
               align="center"
-              p={2}
+              p={1}
+              h={"350px"}
             >
               <Image
                 src={el.image}
                 alt={`Picture of ${el.title}`}
                 roundedTop="lg"
+                h="60%"
               />
 
               <Box p="3">
