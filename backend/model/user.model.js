@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     email : String,
     password : String,
     mobile : String,
-    isAdmin : Boolean
+    isAdmin : {type:Boolean, default:false}
 });
 
 const UserModel = mongoose.model("user",userSchema);
