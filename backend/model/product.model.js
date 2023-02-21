@@ -10,7 +10,8 @@ const productSchema = mongoose.Schema({
   discount: String,
   offer: String,
   category : String,
-  type : String
+  type : String,
+  stock : String
 });
 
 const ProductModel = mongoose.model("product", productSchema);
