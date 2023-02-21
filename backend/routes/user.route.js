@@ -2,10 +2,11 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { UserModel } = require("../model/user.model");
 const jwt = require("jsonwebtoken");
+const { adminAuthenticate } = require("../middlewares/admin.middleware");
 
 const userRouter = express.Router();
 
-userRouter.get("/",async (req,res) => {
+userRouter.get("/",adminAuthenticate,async (req,res) => {
 
   try {
     const user = await UserModel.find()
@@ -14,7 +15,20 @@ userRouter.get("/",async (req,res) => {
     res.send("something went wrong");
     console.log(error);
   }
-})
+});
+
+userRouter.patch("/update/:id",adminAuthenticate,async (req,res) => {
+
+  const id = req.params.id;
+
+  try {
+    await UserModel.findByIdAndUpdate(id,{isAdmin:true})
+    res.send({msg:"user status updated"});
+  } catch (error) {
+    res.send("something went wrong");
+    console.log(error);
+  }
+});
 
 userRouter.post("/register", async (req, res) => {
   const { name, email, password, mobile } = req.body;
