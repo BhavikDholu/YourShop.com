@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ADD_PRODUCT, GET_PRODUCT, REMOVE_PRODUCT ,GET_ORDER_PRODUCT,CHANGE_STATUS,ORDER_CHECKOUT, ADMIN_LOGIN} from "./admin.types";
+import { ADD_PRODUCT, GET_PRODUCT, REMOVE_PRODUCT ,GET_ORDER_PRODUCT,CHANGE_STATUS,ORDER_CHECKOUT, ADMIN_LOGIN} from "./admin.type";
+
 
 export const AdminGetProduct = (category) => async (dispatch) => {
   let res = await axios.get(
@@ -8,9 +9,9 @@ export const AdminGetProduct = (category) => async (dispatch) => {
   dispatch({ type: GET_PRODUCT, payload: res.data });
 };
 
-export const AdminAddProduct = (category, detail) => async (dispatch) => {
+export const AdminAddProduct = (detail) => async (dispatch) => {
   let res = await fetch(
-    `https://verecel-database-api.vercel.app/${category}`,
+    `${process.env.REACT_APP_BASE_URL}/product/create`,
     {
         method: 'POST', // or 'PUT'
         headers: {
@@ -19,8 +20,10 @@ export const AdminAddProduct = (category, detail) => async (dispatch) => {
         body : JSON.stringify(detail)
     }
   );
-
-  dispatch({ type: ADD_PRODUCT, payload: res.data });
+  let data = await res.json();
+  // console.log(data)
+  dispatch({ type: ADD_PRODUCT, payload: data });
+  return data
 };
 
 export const AdminRemoveProduct = (category, id) => async (dispatch) => {

@@ -47,12 +47,12 @@ productRouter.get("/:id",async(req,res) => {
 productRouter.post("/create", async (req, res) => {
   let data = req.body;
   try {
-    // let product = new ProductModel(data);
-    // await product.save();
-    await ProductModel.insertMany(data);
-    res.send({ msg: "product added" });
+    let product = new ProductModel(data);
+    await product.save();
+    // await ProductModel.insertMany(data);
+    res.send({ msg: "Product Added Successfully" ,status:"success"});
   } catch (error) {
-    res.send({ msg: "something went wrong" });
+    res.send({ msg: "something went wrong", status:"error"});
     console.log(error);
   }
 });

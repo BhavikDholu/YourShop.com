@@ -36,9 +36,9 @@ function ManageProduct() {
   const handleDelete =(id)=>{
     dispatch(AdminRemoveProduct(type,id));
   }
-  // const handleEdit = (id) =>{
-  //   // dispatch(AdminRemoveProduct(category,id))
-  // }
+  const handleEdit = (id) =>{
+    // dispatch(AdminRemoveProduct(category,id))
+  }
 
   React.useEffect(() => {
     dispatch(AdminGetProduct(type));
