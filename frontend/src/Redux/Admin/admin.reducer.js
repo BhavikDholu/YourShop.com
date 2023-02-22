@@ -7,6 +7,8 @@ const AdminInit = {
     process:0,
     delivered:0,
     total:0,
+    totalPages:1,
+    totalItem:1,
    data : []
 };
 
@@ -15,7 +17,7 @@ export const AdminReducer = (state=AdminInit,{type,payload})=>{
     switch(type){
         case GET_PRODUCT : {
             return {
-                ...state,data:payload
+                ...state,data:payload.product,totalItem:payload.totalItem,totalPages:payload.totalPages
             }
         }
         case ADD_PRODUCT : {
@@ -26,7 +28,7 @@ export const AdminReducer = (state=AdminInit,{type,payload})=>{
         case REMOVE_PRODUCT : {
             let new_data = state.data.filter((product)=>product.id!==payload);
             return {
-                ...state,data:new_data
+                ...state,data:new_data,totalItem:state.totalItem-1
             }
         }
         case GET_ORDER_PRODUCT : {

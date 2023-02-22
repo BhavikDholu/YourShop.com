@@ -48,8 +48,8 @@ function AddProduct() {
       })
     );
 
-    console.log(detail);
-    // setDetail(init);
+    // console.log(detail);
+    setDetail(init);
   };
 
   const {

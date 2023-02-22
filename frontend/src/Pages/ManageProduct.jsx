@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Box,
@@ -16,33 +15,50 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from "@chakra-ui/react";
-import { DeleteIcon ,EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AdminGetProduct,
   AdminRemoveProduct,
 } from "../Redux/Admin/admin.actions";
+import PageButton from "../Components/PageButton";
 
 function ManageProduct() {
-  const Product_Data = useSelector((store) => store.admin.data);
+  const { data, totalPages, totalItem } = useSelector((store) => store.admin);
   const [type, setType] = React.useState("men");
+  const [page, setPage] = React.useState(1);
+  const toast = useToast();
+
   const dispatch = useDispatch();
 
   const handleCategory = (e) => {
     setType(e.target.value);
   };
 
-  const handleDelete =(id)=>{
-    dispatch(AdminRemoveProduct(type,id));
-  }
-  const handleEdit = (id) =>{
+  const handleDelete = (id) => {
+    dispatch(AdminRemoveProduct(id)).then((res) =>
+      toast({
+        description: res.msg,
+        status: res.status,
+        duration: 2000,
+        position: "top-right",
+        isClosable: true,
+      })
+    );
+  };
+  const handleEdit = (id) => {
     // dispatch(AdminRemoveProduct(category,id))
-  }
+  };
+
+  const handlePage = (num) => {
+    setPage(num);
+  };
 
   React.useEffect(() => {
-    dispatch(AdminGetProduct(type));
-  }, [type]);
+    dispatch(AdminGetProduct({ type, page }));
+  }, [type, page]);
   return (
     <Box mt={5}>
       <Heading>Manage Product</Heading>
@@ -86,9 +102,7 @@ function ManageProduct() {
           >
             <Box>
               <Text>Total Products</Text>
-              <Text>
-                {Product_Data.length}
-              </Text>
+              <Text>{totalItem}</Text>
             </Box>
           </Box>
         </Flex>
@@ -96,7 +110,7 @@ function ManageProduct() {
       <Box w="80%" margin="auto">
         <TableContainer mt="10px">
           <Table variant="striped" colorScheme="red">
-            <TableCaption>Recent Orders</TableCaption>
+            <TableCaption>{type} products</TableCaption>
             <Thead>
               <Tr bg="teal.300">
                 <Th>Product ID</Th>
@@ -106,21 +120,28 @@ function ManageProduct() {
               </Tr>
             </Thead>
             <Tbody>
-              {Product_Data?.map((product) => (
-                <Tr key={product.id}>
-                  <Td>{product.id}</Td>
+              {data?.map((product) => (
+                <Tr key={product._id}>
+                  <Td>{product._id}</Td>
                   <Td>{product.title}</Td>
                   <Td>
-                    <EditIcon onClick={()=>handleEdit(product.id)}/>
+                    <EditIcon onClick={() => handleEdit(product._id)} />
                   </Td>
                   <Td>
-                    <DeleteIcon onClick={()=>handleDelete(product.id)}/>
+                    <DeleteIcon onClick={() => handleDelete(product._id)} />
                   </Td>
                 </Tr>
               ))}
             </Tbody>
           </Table>
         </TableContainer>
+      </Box>
+      <Box m="20px">
+        <PageButton
+          totalPages={totalPages}
+          handlePage={handlePage}
+          page={page}
+        />
       </Box>
     </Box>
   );

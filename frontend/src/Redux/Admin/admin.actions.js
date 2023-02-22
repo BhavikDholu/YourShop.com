@@ -1,12 +1,20 @@
 import axios from "axios";
 import { ADD_PRODUCT, GET_PRODUCT, REMOVE_PRODUCT ,GET_ORDER_PRODUCT,CHANGE_STATUS,ORDER_CHECKOUT, ADMIN_LOGIN} from "./admin.type";
 
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2M2RlOGQ1YjBhMDhjYmM3Mjc2NWYwN2IiLCJpYXQiOjE2NzU5Mzg4NDd9.1hJ7dbglkUw2prt-sUW0vjI0RGTWKsLi5o32dQmEwmo";
 
-export const AdminGetProduct = (category) => async (dispatch) => {
-  let res = await axios.get(
-    `https://verecel-database-api.vercel.app/${category}`
+export const AdminGetProduct = ({type,page}) => async (dispatch) => {
+  let res = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/product?page=${page}&type=${type}`,
+    {
+        headers: {
+          Authorization: token,
+        }
+    }
   );
-  dispatch({ type: GET_PRODUCT, payload: res.data });
+  let data = await res.json();
+  // console.log(data)
+  dispatch({ type: GET_PRODUCT, payload: data });
 };
 
 export const AdminAddProduct = (detail) => async (dispatch) => {
@@ -26,10 +34,10 @@ export const AdminAddProduct = (detail) => async (dispatch) => {
   return data
 };
 
-export const AdminRemoveProduct = (category, id) => async (dispatch) => {
+export const AdminRemoveProduct = (id) => async (dispatch) => {
   try {
     let res = await fetch(
-      `https://verecel-database-api.vercel.app/${category}/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/product//remove/${id}`,
       {
         method: "DELETE", // or 'PUT'
         headers: {
@@ -37,8 +45,9 @@ export const AdminRemoveProduct = (category, id) => async (dispatch) => {
         },
       }
     );
-
+    let data = res.json();
     dispatch({ type: REMOVE_PRODUCT, payload: id });
+    return data
   } catch (error) {
     console.log(error);
   }
