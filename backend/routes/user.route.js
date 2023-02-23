@@ -31,15 +31,15 @@ userRouter.patch("/update/:id",adminAuthenticate,async (req,res) => {
 });
 
 userRouter.post("/register", async (req, res) => {
-  const { name, email, password, mobile } = req.body;
+  const { f_name,l_name, email, password, mobile } = req.body;
   try {
     bcrypt.hash(password, 5, async (err, hash) => {
-      const user = new UserModel({ name, email, password: hash, mobile });
+      const user = new UserModel({ f_name,l_name, email, password: hash, mobile });
       await user.save();
-      res.send("Registered successfully");
+      res.send({msg:"Registered successfully",status:"success"});
     });
   } catch (err) {
-    res.send("Error in registering the user");
+    res.send({msg:"Error in registering the user",status:"error"});
     console.log(err);
   }
 });
@@ -52,16 +52,16 @@ userRouter.post("/login", async (req, res) => {
       bcrypt.compare(password, user[0].password, function (err, result) {
         if (result) {
           const token = jwt.sign({ userID: user[0]._id }, "token");
-          res.send({ msg: "Login Successfull", token: token });
+          res.send({ msg: "Login Successfull", token: token,status:"success" });
         } else {
-          res.send("Wrong Credntials");
+          res.send({msg:"Wrong Credntials",status:"warning"});
         }
       });
     } else {
-      res.send("Wrong Credntials");
+      res.send({msg:"Wrong Credntials",status:"warning"});
     }
   } catch (err) {
-    res.send("Something went wrong");
+    res.send({msg:"Something went wrong",status:"error"});
     console.log(err);
   }
 });
