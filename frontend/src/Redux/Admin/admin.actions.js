@@ -1,9 +1,10 @@
 import axios from "axios";
 import { ADD_PRODUCT, GET_PRODUCT, REMOVE_PRODUCT ,GET_ORDER_PRODUCT,CHANGE_STATUS,ORDER_CHECKOUT, ADMIN_LOGIN} from "./admin.type";
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2M2RlOGQ1YjBhMDhjYmM3Mjc2NWYwN2IiLCJpYXQiOjE2NzU5Mzg4NDd9.1hJ7dbglkUw2prt-sUW0vjI0RGTWKsLi5o32dQmEwmo";
+// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2M2RlOGQ1YjBhMDhjYmM3Mjc2NWYwN2IiLCJpYXQiOjE2NzU5Mzg4NDd9.1hJ7dbglkUw2prt-sUW0vjI0RGTWKsLi5o32dQmEwmo";
 
 export const AdminGetProduct = ({type,page}) => async (dispatch) => {
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   let res = await fetch(
     `${process.env.REACT_APP_BASE_URL}/product?page=${page}&type=${type}`,
     {
@@ -18,12 +19,14 @@ export const AdminGetProduct = ({type,page}) => async (dispatch) => {
 };
 
 export const AdminAddProduct = (detail) => async (dispatch) => {
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   let res = await fetch(
     `${process.env.REACT_APP_BASE_URL}/product/create`,
     {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
+          Authorization: token
         },
         body : JSON.stringify(detail)
     }
@@ -35,13 +38,15 @@ export const AdminAddProduct = (detail) => async (dispatch) => {
 };
 
 export const AdminRemoveProduct = (id) => async (dispatch) => {
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   try {
     let res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/product//remove/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/product/remove/${id}`,
       {
         method: "DELETE", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
+          Authorization: token
         },
       }
     );
@@ -54,6 +59,7 @@ export const AdminRemoveProduct = (id) => async (dispatch) => {
 };
 
 export const GetOrder = () => async (dispatch) => {
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   let res = await axios.get(
     `https://verecel-database-api.vercel.app/user`
   );
@@ -61,6 +67,7 @@ export const GetOrder = () => async (dispatch) => {
 };
 
 export const updateStatus = (id,change) => async(dispatch)=>{
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   try {
       let res = await axios.patch(`https://verecel-database-api.vercel.app/user/${id}`,{
           ...change
@@ -72,6 +79,7 @@ export const updateStatus = (id,change) => async(dispatch)=>{
 };
 
 export const checkoutOrder = (order) => async (dispatch) => {
+  const token = JSON.parse(localStorage.getItem("token")) || 0;
   let res = await fetch(
     `https://verecel-database-api.vercel.app/user`,
     {

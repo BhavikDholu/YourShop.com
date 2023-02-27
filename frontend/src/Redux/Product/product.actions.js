@@ -5,7 +5,7 @@ export const getProduct = ({page,limit}) => async(dispatch)=>{
     dispatch({type:GET_PRODUCT_LOADING});
 
     try {
-        let res = await fetch(`http://localhost:4500/product?page=${page}&limit=${limit}`);
+        let res = await fetch(`${process.env.REACT_APP_BASE_URL}/product?page=${page}&limit=${limit}`);
         let data = await res.json();
         console.log(data);
         dispatch({type:GET_PRODUCT_SUCCESS,payload:data});
@@ -18,7 +18,7 @@ export const getSingleProduct = (id) => async(dispatch)=>{
     dispatch({type:GET_PRODUCT_LOADING});
 
     try {
-        let res = await fetch(`http://localhost:4500/product/${id}`);
+        let res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/${id}`);
         let data = await res.json();
         console.log(data);
         dispatch({type:GET_SINGLE_PRODUCT_SUCCESS,payload:data});

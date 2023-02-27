@@ -6,6 +6,7 @@ import Home from './Home';
 import Kids from './Kids';
 import Login from './Login';
 import Men from './Men';
+import Profile from './Profile';
 import Signup from './Signup';
 import SingleProduct from './SingleProduct';
 import Wishlist from './Wishlist';
@@ -25,6 +26,7 @@ function Allroutes() {
         <Route path='/men/:id'element={<SingleProduct />}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/profile' element={<Profile/>}/>
     </Routes>
     </>
   )

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const { UserModel } = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const { adminAuthenticate } = require("../middlewares/admin.middleware");
+const { authenticate } = require("../middlewares/authentication.middleware");
 
 const userRouter = express.Router();
 
@@ -17,7 +18,18 @@ userRouter.get("/",adminAuthenticate,async (req,res) => {
   }
 });
 
-userRouter.patch("/update/:id",adminAuthenticate,async (req,res) => {
+userRouter.get("/details",authenticate,async (req,res) => {
+ const {userID} = req.body;
+  try {
+    const user = await UserModel.findById({'_id':userID});
+    res.send(user);
+  } catch (error) {
+    res.send("something went wrong");
+    console.log(error);
+  }
+});
+
+userRouter.patch("/update/:id",async (req,res) => {
 
   const id = req.params.id;
 
@@ -32,15 +44,22 @@ userRouter.patch("/update/:id",adminAuthenticate,async (req,res) => {
 
 userRouter.post("/register", async (req, res) => {
   const { f_name,l_name, email, password, mobile } = req.body;
-  try {
-    bcrypt.hash(password, 5, async (err, hash) => {
-      const user = new UserModel({ f_name,l_name, email, password: hash, mobile });
-      await user.save();
-      res.send({msg:"Registered successfully",status:"success"});
-    });
-  } catch (err) {
-    res.send({msg:"Error in registering the user",status:"error"});
-    console.log(err);
+
+  const exist = await UserModel.find({email});
+  if(exist.length>0){
+    res.send({msg:"user already exist",status:"warning"})
+  }else{
+
+    try {
+      bcrypt.hash(password, 5, async (err, hash) => {
+        const user = new UserModel({ f_name,l_name, email, password: hash, mobile });
+        await user.save();
+        res.send({msg:"Registered successfully",status:"success"});
+      });
+    } catch (err) {
+      res.send({msg:"Error in registering the user",status:"error"});
+      console.log(err);
+    }
   }
 });
 
