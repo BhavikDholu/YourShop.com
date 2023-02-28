@@ -121,14 +121,6 @@ const Product = [
   {
     Title : "Women's Fashion",
     data : [
-      {
-        "image": "https://m.media-amazon.com/images/I/711gj5wsy7L._AC_UL320_.jpg",
-        "title": "VASABA",
-        "rating": "3.9",
-        "d_price": "545",
-        "price": "1,849",
-        "discount": "71%"
-    },
     {
         "image": "https://m.media-amazon.com/images/I/719zWxFSu9L._AC_UL320_.jpg",
         "title": "YouBella",
