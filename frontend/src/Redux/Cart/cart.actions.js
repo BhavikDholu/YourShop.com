@@ -8,8 +8,8 @@ import {
 } from "./cart.type";
 
 export const getCartItem = () => async (dispatch) => {
-  let token = JSON.parse(localStorage.getItem("token")) || false;
-  console.log(token)
+  let token = JSON.parse(localStorage.getItem("token")) || 0;
+ 
   dispatch({ type: CART_LOADING });
   try {
     let res = await fetch(process.env.REACT_APP_CART_BASE_URL, {
@@ -19,8 +19,8 @@ export const getCartItem = () => async (dispatch) => {
     });
     let data = await res.json();
     // console.log(await res.json());
-    dispatch({ type: GET_CART_SUCCESS, payload: data });
     console.log(data)
+    dispatch({ type: GET_CART_SUCCESS, payload: data });
   } catch (error) {
     console.log(error);
     dispatch({ type: CART_ERROR });
@@ -43,7 +43,7 @@ export const addToCart = (productID) => async (dispatch) => {
       }
     );
     let data = await res.json();
-    // console.log(await res.json());
+    console.log(data);
     dispatch({ type: ADD_TO_CART, payload: data });
   } catch (error) {
     console.log(error);

@@ -3,8 +3,9 @@ import Rating from "./Rating";
 import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToWishlist } from "../Redux/Wishlist/wishlist.actions";
+import {useDispatch} from "react-redux";
+import { deleteWishlist } from "../Redux/Wishlist/wishlist.actions";
+import { addToCart } from "../Redux/Cart/cart.actions";
 
 const ProductCard = (props) => {
   const {
@@ -21,10 +22,12 @@ const ProductCard = (props) => {
     id
   } = props;
 
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleClick = (id)=>{
-      navigate(`/men/${id}`);
+      navigate(`/${type}/${id}`);
   }
 
   return (
@@ -85,9 +88,16 @@ const ProductCard = (props) => {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="blue"
           variant="outline"
-          onClick={()=>dispatch(addToWishlist(id))}
+          onClick={()=>dispatch(addToCart(id))}
         >
-          Add to Wish List
+          Add to Cart
+        </Button>
+        <Button
+          colorScheme="red"
+          variant="outline"
+          onClick={()=>dispatch(deleteWishlist(id))}
+        >
+          Remove
         </Button>
       </Box>
     </Box>

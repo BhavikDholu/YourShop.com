@@ -8,11 +8,11 @@ wishlistRouter.get("/",authenticate, async(req,res)=>{
     const userID = req.body.userID;
     
     try {
-        let cart = await WishlistModel.find({userID}).populate(["productID"]);
-        if(cart.length>0){
-            res.send(cart);
+        let wishlist = await WishlistModel.find({userID}).populate(["productID"]);
+        if(wishlist.length>0){
+            res.send({data:wishlist});
         }else{
-            res.send({msg:"Wishlist is Empty!", status:'warning'});
+            res.send({data:[],msg:"Wishlist is Empty!", status:'warning'});
         }
     } catch (error) {
         console.log(error);

@@ -26,3 +26,4 @@ export const getSingleProduct = (id) => async(dispatch)=>{
         dispatch({type:GET_PRODUCT_ERROR,payload:error});
     }
 }
+

@@ -8,6 +8,7 @@ import { getSingleProduct } from '../Redux/Product/product.actions';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { BsCart3 } from 'react-icons/bs';
 import { addToCart } from '../Redux/Cart/cart.actions';
+import { addToWishlist } from '../Redux/Wishlist/wishlist.actions';
 
 // const singleProduct = {
 //   image: "https://m.media-amazon.com/images/I/61DGAlvxRLL._AC_UL320_.jpg",
@@ -110,6 +111,7 @@ function SingleProduct() {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="blue"
           variant="outline"
+          onClick={()=>dispatch(addToWishlist(id))}
         >
           Add to Wish List
         </Button>

@@ -10,9 +10,9 @@ cartRouter.get("/",authenticate, async(req,res)=>{
     try {
         let cart = await CartModel.find({userID}).populate(["productID"]);
         if(cart.length>0){
-            res.send(cart);
+            res.send({data:cart});
         }else{
-            res.send({msg:"cart is Empty!"});
+            res.send({data:[],msg:"cart is Empty!"});
         }
     } catch (error) {
         console.log(error);

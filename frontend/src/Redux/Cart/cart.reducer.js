@@ -28,7 +28,7 @@ export const cartReducer = (state = initState, { type, payload }) => {
       let dPrice = 0;
       let price=0;
       let num=0;
-      payload.forEach((item) => {
+      payload.data.forEach((item) => {
         dPrice += item.count * item.productID.d_price;
         price +=item.count * Number(item.productID.price.replace(",",""));
         num +=item.count;
@@ -36,7 +36,7 @@ export const cartReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        cartItem: payload,
+        cartItem: payload.data,
         totalPrice: price,
         discountPrice : dPrice,
         totalItem:num
@@ -53,7 +53,7 @@ export const cartReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        cartItem: [...state.cartItem, payload],
+        cartItem: [...state.cartItem, payload.data],
       };
     }
     case UPDATE_CART: {

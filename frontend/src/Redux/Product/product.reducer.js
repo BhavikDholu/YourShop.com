@@ -10,7 +10,7 @@ const initialState = {
   error: false,
   totalPages: 1,
   singleProduct:{},
-  productData: [],
+  productData: []
 };
 
 export const productReducer = (state = initialState, { type, payload }) => {

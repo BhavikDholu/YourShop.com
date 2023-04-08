@@ -24,6 +24,9 @@ function Allroutes() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/men/:id'element={<SingleProduct />}/>
+        <Route path='/women/:id'element={<SingleProduct />}/>
+        <Route path='/kids/:id'element={<SingleProduct />}/>
+        <Route path='/beauty/:id'element={<SingleProduct />}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/profile' element={<Profile/>}/>
