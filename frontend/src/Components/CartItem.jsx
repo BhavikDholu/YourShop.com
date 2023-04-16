@@ -11,11 +11,27 @@ function CartItem(props) {
 
   const handleCount = (e) => {
     let value = e.target.value
-    dispatch(updateCount(id, value));
+    dispatch(updateCount(id, value)).then((res) =>
+    toast({
+      description: res.msg,
+      status: res.status,
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    })
+  );;
   };
 
   const handleDelete = () => {
-    dispatch(removeItem(id));
+    dispatch(removeItem(id)).then((res) =>
+    toast({
+      description: res.msg,
+      status: res.status,
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    })
+  );;
   };
   return (
     <Flex
@@ -40,7 +56,7 @@ function CartItem(props) {
         </Box>
         <Box>
           <Select
-            placeholder={count}
+            // placeholder={count}
             onChange={handleCount}
           >
             <option value="1">1</option>

@@ -27,6 +27,18 @@ const ProductCard = (props) => {
       navigate(`/men/${id}`);
   }
 
+  const handleAddToWishlist = () =>{
+    dispatch(addToWishlist(id)).then((res) =>
+    toast({
+      description: res.msg,
+      status: res.status,
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    })
+  );
+  }
+
   return (
     <Box
       maxW="sm"
@@ -85,7 +97,7 @@ const ProductCard = (props) => {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="blue"
           variant="outline"
-          onClick={()=>dispatch(addToWishlist(id))}
+          onClick={handleAddToWishlist}
         >
           Add to Wish List
         </Button>

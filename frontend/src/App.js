@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Allroutes/>
       <Footer />
-      {/* <Admin /> */}
+       {/* <Admin />  */}
     </div>
   );
 }

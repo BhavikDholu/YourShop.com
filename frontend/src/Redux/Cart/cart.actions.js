@@ -43,8 +43,8 @@ export const addToCart = (productID) => async (dispatch) => {
       }
     );
     let data = await res.json();
-    console.log(data);
     dispatch({ type: ADD_TO_CART, payload: data });
+    return data;
   } catch (error) {
     console.log(error);
     dispatch({ type: CART_ERROR });
@@ -69,6 +69,7 @@ export const updateCount = (id, count) => async (dispatch) => {
     let data = await res.json();
     // console.log(await res.json());
     dispatch({ type: UPDATE_CART, payload: { id, count } });
+    return data
   } catch (error) {
     console.log(error);
     dispatch({ type: CART_ERROR });
@@ -92,6 +93,7 @@ export const removeItem = (id) => async (dispatch) => {
       let data = await res.json();
       // console.log(await res.json());
       dispatch({ type: REMOVE_CART, payload: {id} });
+      return data
     } catch (error) {
       console.log(error);
       dispatch({ type: CART_ERROR });

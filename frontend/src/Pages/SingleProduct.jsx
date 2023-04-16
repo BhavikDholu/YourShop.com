@@ -10,18 +10,7 @@ import { BsCart3 } from 'react-icons/bs';
 import { addToCart } from '../Redux/Cart/cart.actions';
 import { addToWishlist } from '../Redux/Wishlist/wishlist.actions';
 
-// const singleProduct = {
-//   image: "https://m.media-amazon.com/images/I/61DGAlvxRLL._AC_UL320_.jpg",
-//   title: "Dennis Lingo",
-//   description: "Men's Checkered Slim Fit Cotton Casual Shirt",
-//   rating: "2.9",
-//   d_price: "649",
-//   price: "2,499",
-//   discount: "74%",
-//   offer: "Buy 3 Get 5% Off, Buy 4 Get 10% Off",
-//   category: "shirt",
-//   type: "men",
-// };
+
 
 function SingleProduct() {
   const {id} = useParams();
@@ -29,7 +18,27 @@ function SingleProduct() {
   const dispatch = useDispatch();
 
   const handleAdd = (id) =>{
-    dispatch(addToCart(id));
+    dispatch(addToCart(id)).then((res) =>
+    toast({
+      description: res.msg,
+      status: res.status,
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    })
+  );
+  }
+
+  const handleAddToWishlist = (id) =>{
+    dispatch(addToWishlist(id)).then((res) =>
+    toast({
+      description: res.msg,
+      status: res.status,
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    })
+  );
   }
 
   useEffect(()=>{
@@ -37,8 +46,8 @@ function SingleProduct() {
   },[])
 
   return (
-    <Box  w='90%' h='80vh' align='center' m='auto' mt='20px'>
-      <SimpleGrid columns={2} h='100%' >
+    <Box  w='90%' align='center' m='auto' mt='20px'>
+      <SimpleGrid columns={[1,1,2]} h='100%' >
         <Box >
           <Image src={singleProduct.image} w='240px' alt={`Picture of ${singleProduct.title}`} roundedTop="lg"/>
         </Box>
@@ -101,6 +110,7 @@ function SingleProduct() {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="red"
           variant="solid"
+          onClick={()=>handleAdd(singleProduct._id)}
         >
           Buy Now
         </Button>
@@ -111,7 +121,7 @@ function SingleProduct() {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="blue"
           variant="outline"
-          onClick={()=>dispatch(addToWishlist(id))}
+          onClick={()=>handleAddToWishlist(singleProduct._id)}
         >
           Add to Wish List
         </Button>

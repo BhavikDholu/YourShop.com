@@ -41,7 +41,7 @@ const Signup = () => {
     setDetail({ ...detail, [name]: value });
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
     dispatch(userSignup(detail)).then((res) =>
@@ -96,7 +96,7 @@ const Signup = () => {
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="lastName">
+                <FormControl id="lastName" isRequired>
                   <FormLabel>Last Name</FormLabel>
                   <Input
                     type="text"
@@ -115,6 +115,16 @@ const Signup = () => {
                 placeholder="Enter your Email"
                 name="email"
                 value={email}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl id="mobile" isRequired>
+              <FormLabel>Mobile number</FormLabel>
+              <Input
+                type="text"
+                placeholder="Enter your mobile number"
+                name="mobile"
+                value={mobile}
                 onChange={handleChange}
               />
             </FormControl>

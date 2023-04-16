@@ -26,7 +26,7 @@ wishlistRouter.post("/add",authenticate,async(req,res)=>{
     try {
         const item = await WishlistModel.findOne({userID,productID});
         if(item){
-            res.send({msg:"item is already in the wishlist",status:'warning'});
+            res.send({msg:"item is already in the wishlist",status:'info'});
         }else {
             const item = new WishlistModel({userID,productID,count:1});
             await item.save();

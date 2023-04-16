@@ -26,11 +26,11 @@ cartRouter.post("/add",authenticate,async(req,res)=>{
     try {
         const item = await CartModel.findOne({userID,productID});
         if(item){
-            res.send({msg:"item is already in the cart"});
+            res.send({msg:"item is already in the cart",status:"info"});
         }else {
             const item = new CartModel({userID,productID,count:1});
             await item.save();
-            res.send({msg:"item is added to the cart"});
+            res.send({msg:"item is added to the cart",status:"success"});
         }
         
     } catch (error) {
@@ -44,7 +44,7 @@ cartRouter.patch("/update/:id",authenticate,async(req,res)=>{
   const count = req.body.count;
     try {
             await CartModel.findByIdAndUpdate(id,{count});
-            res.send({msg:"count updated"}); 
+            res.send({msg:"count updated",status:"info"}); 
     } catch (error) {
         console.log(error);
         res.send("Something went wrong");
@@ -56,7 +56,7 @@ cartRouter.delete("/remove/:id",authenticate,async(req,res)=>{
 
     try {
         await CartModel.findByIdAndDelete(id);
-        res.send({msg:"item removed"});
+        res.send({msg:"item removed",status:"info"});
     } catch (error) {
         console.log(error);
         res.send("something went wrong");

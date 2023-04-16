@@ -42,6 +42,19 @@ userRouter.patch("/update/:id",async (req,res) => {
   }
 });
 
+// userRouter.patch("/update/address",authenticate,async (req,res) => {
+
+//   const {userID, city,dist, state, pincode, address } = req.body;
+
+//   try {
+//     await UserModel.findByIdAndUpdate(userID,{city, dist, state, pincode, address})
+//     res.send({msg:"user address updated"});
+//   } catch (error) {
+//     res.send("something went wrong");
+//     console.log(error);
+//   }
+// });
+
 userRouter.post("/register", async (req, res) => {
   const { f_name,l_name, email, password, mobile } = req.body;
 

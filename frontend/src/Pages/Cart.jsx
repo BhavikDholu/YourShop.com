@@ -1,18 +1,59 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import { Box, Button, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItem } from "../Redux/Cart/cart.actions";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import CartItem from "../Components/CartItem";
+import logo from "../assets/yourshop1.png"
+import { getUserDetail } from "../Redux/User/user.actions";
 
 function Cart() {
   const { cartItem, totalPrice, discountPrice, totalItem } = useSelector(
     (store) => store.cart
   );
+  const { userDetail } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+
+  const handleCheckout =  async() => {
+
+    
+
+    const { data: { key } } = await axios.get(`${process.env.REACT_APP_BASE_URL}/payment/getkey`)
+    
+
+    const { data: { order } } = await axios.post(`${process.env.REACT_APP_BASE_URL}/payment/checkout`, {
+        value:totalPrice
+    })
+   
+    const options = {
+        key,
+        amount: order.amount,
+        currency: "INR",
+        name: "YourShop.com",
+        description: "Apki Apni Dukaan",
+        image: logo,
+        order_id: order.id,
+        callback_url: `${process.env.REACT_APP_BASE_URL}/payment/paymentverification/${userDetail._id}`,
+        prefill: {
+            name: userDetail.f_name,
+            email: userDetail.email,
+            contact: userDetail.mobile
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            "color": "#90CDF4"
+        }
+    };
+    const razor = new window.Razorpay(options);
+    razor.open();
+}
 
   useEffect(() => {
     dispatch(getCartItem());
+    dispatch(getUserDetail());
   }, []);
 
   if (totalItem === 0) {
@@ -123,6 +164,7 @@ function Cart() {
             colorScheme="red"
             variant="solid"
             w="100%"
+            onClick={handleCheckout}
           >
             Checkout
           </Button>
