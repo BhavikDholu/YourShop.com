@@ -1,6 +1,6 @@
 import React from "react";
 import Rating from "./Rating";
-import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, useColorModeValue, useToast } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ const ProductCard = (props) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
   const handleClick = (id)=>{
       navigate(`/men/${id}`);
   }

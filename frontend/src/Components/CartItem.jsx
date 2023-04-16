@@ -1,5 +1,5 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Image, Select } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Select, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeItem, updateCount } from "../Redux/Cart/cart.actions";
@@ -8,6 +8,7 @@ function CartItem(props) {
 
     const {id,image,title,count,d_price,price,discount} = props;
     const dispatch = useDispatch();
+    const toast = useToast();
 
   const handleCount = (e) => {
     let value = e.target.value
@@ -19,7 +20,7 @@ function CartItem(props) {
       position: "top-right",
       isClosable: true,
     })
-  );;
+  );
   };
 
   const handleDelete = () => {
@@ -31,7 +32,7 @@ function CartItem(props) {
       position: "top-right",
       isClosable: true,
     })
-  );;
+  );
   };
   return (
     <Flex

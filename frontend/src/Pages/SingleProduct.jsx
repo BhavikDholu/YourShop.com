@@ -1,4 +1,4 @@
-import { Box, Flex, Image, SimpleGrid, useColorModeValue, Button, Divider } from '@chakra-ui/react'
+import { Box, Flex, Image, SimpleGrid, useColorModeValue, Button, Divider, useToast } from '@chakra-ui/react'
 import React from 'react'
 import Rating from '../Components/Rating';
 import { useEffect } from 'react';
@@ -16,6 +16,7 @@ function SingleProduct() {
   const {id} = useParams();
   const {singleProduct} = useSelector((store)=>store.product);
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleAdd = (id) =>{
     dispatch(addToCart(id)).then((res) =>
